@@ -1,7 +1,8 @@
 import { Router } from "express";
 import {upload} from "../middlewares/multer.middlewares.js";
-import { registerUser } from "../controllers/user.controllers.js"
+import { registerUser , loginUser , logoutUser, refreshAccessToken } from "../controllers/user.controllers.js"
 import fs from "fs";
+import { verifyJWT } from "../middlewares/auth.middlewares.js";
 
 const uploadDir = "public/temp";
 
@@ -22,6 +23,19 @@ router.route("/register").post((req, res, next) => {
         next();
     });
 }, registerUser);
+
+router.route("/login").post(loginUser).get((req,res)=>{
+    res.render("login");
+})
+
+// secured routes
+router.route("/logout").post(verifyJWT,logoutUser);
+router.route("/refresh-token").post(refreshAccessToken);
+
+
+router.route("/signup").get((req,res)=> {
+    res.render('signup');
+});
 
 
 export default router;
