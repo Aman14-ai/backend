@@ -13,7 +13,7 @@ connectDB().then(() => {
         console.log(`Server is running on port ${process.env.PORT}`);
     })
 }).catch((error) => {
-    console.log("mongodb connection failed in src index.js! " + error);
+    console.log("app listening failed in src index.js! " + error);
 })
 
 
