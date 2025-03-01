@@ -56,15 +56,22 @@ const userSchema = new Schema(
 
 // here in this callback do not use arrowfunction because it cannot access this keyword for the current context.
 userSchema.pre("save", async function(next){
+
     if(!this.isModified("password")){ return next(); }
 
     this.password = await bcrypt.hash(this.password,10);
     next();
 }) 
 
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 userSchema.methods.isPasswordCorrect = async function(password){
     return await bcrypt.compare(password,this.password);
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
 userSchema.methods.generateAccessToken = function(){
     return jwt.sign(
