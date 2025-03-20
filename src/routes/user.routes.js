@@ -51,7 +51,8 @@ router.route("/update-account").patch(verifyJWT,updateAccountDetails);
 router.route("/update-avatar").patch(verifyJWT,upload.single("avatar"),updateUserAvatar);
 router.route("/update-cover-image").patch(verifyJWT,upload.single("coverImage"),updateUserCoverImage);
 router.route("/channel/:username").get(verifyJWT,getUserChannelProfile);
-rouer.route("/history").get(verifyJWT,getWatchHistory);
+router.route("/history").get(verifyJWT,getWatchHistory);
+// till now everything is working properly.
 
 
 router.route("/signup").get((req, res) => {
